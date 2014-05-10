@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box" style="width:222px;">
     <div style="min-height:220px;">
         <a href="{{.TheUser.Link}}">
             <img src="{{.TheUser.AvatarLink}}?s=220">
@@ -11,7 +11,7 @@
         {{template "user/component/user-socials.html" dict "User" .TheUser}}
     </div>
     <div class="detail">
-        <ul class="list-unstyled">
+        <ul class="list-unstyled" style="padding-left:10px;">
             {{if .TheUser.Company}}
                 <li>
                     <i class="icon-group"></i> {{.TheUser.Company}}
@@ -20,6 +20,11 @@
             {{if .TheUser.Location}}
                 <li>
                     <i class="icon-map-marker"></i> {{.TheUser.Location}}
+                </li>
+            {{end}}
+            {{if .TheUser.Url}}
+                <li>
+                    <i class="icon-external-link"></i> {{.TheUser.Url}}
                 </li>
             {{end}}
             {{if .TheUser.PublicEmail}}

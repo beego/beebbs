@@ -71,15 +71,14 @@
 }
 
 .post-list .post .meta .tag {
-  color: #999;
-  border-radius: 3px;
-  padding: 2px 3px;
-  background-color: #eee;
+  color: #FFF;
+  border-radius: 10px;
+  padding: 2px 8px;
+  background-color: #D5DBE2;
 }
 
 .post-list .post .meta .tag:hover {
-  color: #666;
-  background-color: #ddd;
+  background-color: #F87B00;
   text-decoration: none;
 }
 
@@ -243,13 +242,14 @@
 }
 
 .post-show .post-meta .tag {
-  border-radius: 3px;
-  padding: 2px 3px;
-  background-color: #eee;
+    color: #FFF;
+  border-radius: 10px;
+  padding: 2px 8px;
+  background-color: #D5DBE2;
 }
 
 .post-show .post-meta .tag:hover {
-  background-color: #ddd;
+    background-color: #F87B00;
   text-decoration: none;
 }
 
@@ -260,6 +260,10 @@
 
 .markdown-editor .md-preview {
   padding-bottom: 15px;
+}
+
+.markdown-editor .textcomplete-wrapper{
+  margin-top: 15px;
 }
 
 .post-comments .comment .avatar {
@@ -304,6 +308,8 @@
 .user-page .detail li > i {
   color: #999;
   padding: 0 7px 0 0;
+  width: 20px;
+  display: inline-block;
 }
 
 .user-page .detail ul {
