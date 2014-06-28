@@ -6,18 +6,13 @@
     <div id="content" class="col-md-9">
         <div class="box">
             <div class="cell first breadcrumb">
-                <a href="{{.AppUrl}}"><i class="icon icon-home"></i></a><i class="divider icon-angle-right"></i>{{if .Topic}}<a href="{{.Topic.Link}}">{{.Topic.GetName .Lang}}</a><i class="divider icon-angle-right"></i>{{end}}{{i18n .Lang "post.post_new"}}
+                <a href="{{.AppUrl}}"><i class="icon icon-home"></i></a><i class="divider icon-angle-right"></i>{{if .Topic}}<a href="{{.Topic.Link}}">{{.Topic.Name}}</a><i class="divider icon-angle-right"></i>{{end}}{{i18n .Lang "post.post_new"}}
             </div>
             <div class="cell last">
                 <form id="post-new" method="POST" action="{{.AppUrl}}new{{if .Topic}}?topic={{.Topic.Slug}}{{end}}">
                     {{.xsrf_html}}{{.once_html}}
 
                     <div class="form-group">
-                        {{with .PostFormSets.Fields.Lang}}
-                            <div class="post-langs{{if .Error}} has-error{{end}}">
-                                {{call .Field}}
-                            </div>
-                        {{end}}
                         {{with .PostFormSets.Fields.Category}}
                             <div class="post-categories{{if .Error}} has-error{{end}}">
                                 {{call .Field}}
