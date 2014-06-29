@@ -38,7 +38,7 @@ import (
 )
 
 const (
-	APP_VER = "0.1.0.1114"
+	APP_VER = "1.0.1.df7df8a"
 )
 
 var (
@@ -100,6 +100,14 @@ var (
 	WeiboClientSecret  string
 	QQClientId         string
 	QQClientSecret     string
+)
+
+var (
+	QiniuServiceEnabled bool
+	QiniuAccessKey      string
+	QiniuSecurityKey    string
+	QiniuPostBucket     string
+	QiniuPostDomain     string
 )
 
 const (
@@ -327,6 +335,13 @@ func reloadConfig() {
 	WeiboClientSecret = Cfg.MustValue("oauth", "weibo_client_secret", "your_client_secret")
 	QQClientId = Cfg.MustValue("oauth", "qq_client_id", "your_client_id")
 	QQClientSecret = Cfg.MustValue("oauth", "qq_client_secret", "your_client_secret")
+
+	//Qiniu
+	QiniuServiceEnabled = Cfg.MustBool("qiniu", "qiniu_service_enabled", false)
+	QiniuAccessKey = Cfg.MustValue("qiniu", "qiniu_access_key")
+	QiniuSecurityKey = Cfg.MustValue("qiniu", "qiniu_security_key")
+	QiniuPostBucket = Cfg.MustValue("qiniu", "qiniu_post_bucket")
+	QiniuPostDomain = Cfg.MustValue("qiniu", "qiniu_post_domain")
 }
 
 func settingLocales() {
