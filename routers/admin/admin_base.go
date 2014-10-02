@@ -19,6 +19,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/pagination"
 
 	"github.com/beego/wetalk/modules/auth"
 	"github.com/beego/wetalk/modules/utils"
@@ -105,7 +106,7 @@ func (this *ModelAdminRouter) SetObjects(qs orm.QuerySeter, objects interface{})
 		return err
 	}
 	// create paginator
-	p := this.SetPaginator(20, cnt)
+	p := pagination.SetPaginator(this, 20, cnt)
 	if cnt, err := qs.Limit(p.PerPageNums, p.Offset()).RelatedSel().All(objects); err != nil {
 		return err
 	} else {

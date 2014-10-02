@@ -455,12 +455,6 @@ func (this *BaseRouter) IsAjax() bool {
 	return this.Ctx.Input.Header("X-Requested-With") == "XMLHttpRequest"
 }
 
-func (this *BaseRouter) SetPaginator(per int, nums int64) *utils.Paginator {
-	p := utils.NewPaginator(this.Ctx.Request, per, nums)
-	this.Data["paginator"] = p
-	return p
-}
-
 func (this *BaseRouter) JsStorage(action, key string, values ...string) {
 	value := action + ":::" + key
 	if len(values) > 0 {
