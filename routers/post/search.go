@@ -18,7 +18,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/pagination"
+	"github.com/astaxie/beego/utils/pagination"
 
 	"github.com/beego/wetalk/modules/post"
 	"github.com/beego/wetalk/modules/utils"

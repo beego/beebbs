@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego/pagination"
+	"github.com/astaxie/beego/utils/pagination"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
