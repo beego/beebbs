@@ -19,10 +19,10 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type TopicAdminRouter struct {
@@ -51,13 +51,13 @@ func (this *TopicAdminRouter) List() {
 // view for create object
 func (this *TopicAdminRouter) Create() {
 	form := post.TopicAdminForm{Create: true}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for new object save
 func (this *TopicAdminRouter) Save() {
 	form := post.TopicAdminForm{Create: true}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
@@ -76,18 +76,18 @@ func (this *TopicAdminRouter) Save() {
 func (this *TopicAdminRouter) Edit() {
 	form := post.TopicAdminForm{}
 	form.SetFromTopic(&this.object)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for update object
 func (this *TopicAdminRouter) Update() {
 	form := post.TopicAdminForm{Id: this.object.Id}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
 	// get changed field names
-	changes := utils.FormChanges(&this.object, &form)
+	changes := forms.FormChanges(&this.object, &form)
 
 	url := fmt.Sprintf("/admin/topic/%d", this.object.Id)
 
@@ -112,7 +112,7 @@ func (this *TopicAdminRouter) Confirm() {
 
 // view for delete object
 func (this *TopicAdminRouter) Delete() {
-	if this.FormOnceNotMatch() {
+	if forms.FormOnceNotMatch(this) {
 		return
 	}
 

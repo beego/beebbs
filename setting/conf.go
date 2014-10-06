@@ -53,9 +53,6 @@ var (
 	IsProMode           bool
 	ActiveCodeLives     int
 	ResetPwdCodeLives   int
-	DateFormat          string
-	DateTimeFormat      string
-	DateTimeShortFormat string
 	TimeZone            string
 	RealtimeRenderMD    bool
 	ImageSizeSmall      int
@@ -256,9 +253,9 @@ func reloadConfig() {
 
 	EnforceRedirect = Cfg.MustBool("app", "enforce_redirect")
 
-	DateFormat = Cfg.MustValue("app", "date_format")
-	DateTimeFormat = Cfg.MustValue("app", "datetime_format")
-	DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
+	beego.DateOnlyFormat = Cfg.MustValue("app", "date_format")
+	beego.DateTimeFormat = Cfg.MustValue("app", "datetime_format")
+	beego.DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
 
 	SecretKey = Cfg.MustValue("app", "secret_key")
 	if len(SecretKey) == 0 {

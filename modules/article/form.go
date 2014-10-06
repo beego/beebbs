@@ -15,6 +15,7 @@
 package article
 
 import (
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/astaxie/beego/validation"
 
 	"github.com/beego/wetalk/modules/models"
@@ -41,7 +42,7 @@ func (form *ArticleAdminForm) Valid(v *validation.Validation) {
 }
 
 func (form *ArticleAdminForm) SetFromArticle(article *models.Article) {
-	utils.SetFormValues(article, form)
+	forms.SetFormValues(article, form)
 
 	if article.User != nil {
 		form.User = article.User.Id
@@ -53,7 +54,7 @@ func (form *ArticleAdminForm) SetFromArticle(article *models.Article) {
 }
 
 func (form *ArticleAdminForm) SetToArticle(article *models.Article) {
-	utils.SetFormValues(form, article)
+	forms.SetFormValues(form, article)
 
 	if article.User == nil {
 		article.User = &models.User{}

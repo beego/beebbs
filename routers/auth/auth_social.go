@@ -17,6 +17,7 @@ package auth
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/social-auth"
 
@@ -96,10 +97,10 @@ func (this *SocialAuthRouter) Connect() {
 	}
 
 	formL := auth.OAuthLoginForm{}
-	this.SetFormSets(&formL)
+	forms.SetFormSets(this, &formL)
 
 	formR := auth.OAuthRegisterForm{Locale: this.Locale}
-	this.SetFormSets(&formR)
+	forms.SetFormSets(this, &formR)
 
 	this.Data["Action"] = this.GetString("action")
 	this.Data["Social"] = socialType
@@ -127,10 +128,10 @@ func (this *SocialAuthRouter) ConnectPost() {
 	var form interface{}
 
 	formL := auth.OAuthLoginForm{}
-	this.SetFormSets(&formL)
+	forms.SetFormSets(this, &formL)
 
 	formR := auth.OAuthRegisterForm{Locale: this.Locale}
-	this.SetFormSets(&formR)
+	forms.SetFormSets(this, &formR)
 
 	action := this.GetString("action")
 	if action == "connect" {
@@ -143,7 +144,7 @@ func (this *SocialAuthRouter) ConnectPost() {
 	this.Data["Social"] = socialType
 
 	// valid form and put errors to template context
-	if this.ValidFormSets(form) == false {
+	if forms.ValidFormSets(this, form) == false {
 		return
 	}
 

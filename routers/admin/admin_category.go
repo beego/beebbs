@@ -19,10 +19,10 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type CategoryAdminRouter struct {
@@ -51,13 +51,13 @@ func (this *CategoryAdminRouter) List() {
 // view for create object
 func (this *CategoryAdminRouter) Create() {
 	form := post.CategoryAdminForm{Create: true}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for new object save
 func (this *CategoryAdminRouter) Save() {
 	form := post.CategoryAdminForm{Create: true}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
@@ -76,18 +76,18 @@ func (this *CategoryAdminRouter) Save() {
 func (this *CategoryAdminRouter) Edit() {
 	form := post.CategoryAdminForm{}
 	form.SetFromCategory(&this.object)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for update object
 func (this *CategoryAdminRouter) Update() {
 	form := post.CategoryAdminForm{Id: this.object.Id}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
 	// get changed field names
-	changes := utils.FormChanges(&this.object, &form)
+	changes := forms.FormChanges(&this.object, &form)
 
 	url := fmt.Sprintf("/admin/category/%d", this.object.Id)
 
@@ -112,7 +112,7 @@ func (this *CategoryAdminRouter) Confirm() {
 
 // view for delete object
 func (this *CategoryAdminRouter) Delete() {
-	if this.FormOnceNotMatch() {
+	if forms.FormOnceNotMatch(this) {
 		return
 	}
 

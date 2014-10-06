@@ -19,10 +19,10 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type CommentAdminRouter struct {
@@ -51,13 +51,13 @@ func (this *CommentAdminRouter) List() {
 // view for create object
 func (this *CommentAdminRouter) Create() {
 	form := post.CommentAdminForm{Create: true}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for new object save
 func (this *CommentAdminRouter) Save() {
 	form := post.CommentAdminForm{Create: true}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
@@ -76,18 +76,18 @@ func (this *CommentAdminRouter) Save() {
 func (this *CommentAdminRouter) Edit() {
 	form := post.CommentAdminForm{}
 	form.SetFromComment(&this.object)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for update object
 func (this *CommentAdminRouter) Update() {
 	form := post.CommentAdminForm{}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
 	// get changed field names
-	changes := utils.FormChanges(&this.object, &form)
+	changes := forms.FormChanges(&this.object, &form)
 
 	url := fmt.Sprintf("/admin/comment/%d", this.object.Id)
 
@@ -112,7 +112,7 @@ func (this *CommentAdminRouter) Confirm() {
 
 // view for delete object
 func (this *CommentAdminRouter) Delete() {
-	if this.FormOnceNotMatch() {
+	if forms.FormOnceNotMatch(this) {
 		return
 	}
 

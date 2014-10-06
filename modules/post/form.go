@@ -15,6 +15,7 @@
 package post
 
 import (
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/astaxie/beego/validation"
 	"github.com/beego/i18n"
 
@@ -88,7 +89,7 @@ func (form *PostForm) Valid(v *validation.Validation) {
 }
 
 func (form *PostForm) SavePost(post *models.Post, user *models.User) error {
-	utils.SetFormValues(form, post)
+	forms.SetFormValues(form, post)
 	post.Category = &models.Category{Id: form.Category}
 	post.Topic = &models.Topic{Id: form.Topic}
 	post.User = user
@@ -103,17 +104,17 @@ func (form *PostForm) SavePost(post *models.Post, user *models.User) error {
 }
 
 func (form *PostForm) SetFromPost(post *models.Post) {
-	utils.SetFormValues(post, form)
+	forms.SetFormValues(post, form)
 	form.Category = post.Category.Id
 	form.Topic = post.Topic.Id
 }
 
 func (form *PostForm) UpdatePost(post *models.Post, user *models.User) error {
-	changes := utils.FormChanges(post, form)
+	changes := forms.FormChanges(post, form)
 	if len(changes) == 0 {
 		return nil
 	}
-	utils.SetFormValues(form, post)
+	forms.SetFormValues(form, post)
 	post.Category.Id = form.Category
 	post.Topic.Id = form.Topic
 	for _, c := range changes {
@@ -191,7 +192,7 @@ func (form *PostAdminForm) Valid(v *validation.Validation) {
 }
 
 func (form *PostAdminForm) SetFromPost(post *models.Post) {
-	utils.SetFormValues(post, form)
+	forms.SetFormValues(post, form)
 
 	if post.User != nil {
 		form.User = post.User.Id
@@ -215,7 +216,7 @@ func (form *PostAdminForm) SetFromPost(post *models.Post) {
 }
 
 func (form *PostAdminForm) SetToPost(post *models.Post) {
-	utils.SetFormValues(form, post)
+	forms.SetFormValues(form, post)
 
 	if post.User == nil {
 		post.User = &models.User{}
@@ -288,7 +289,7 @@ func (form *CommentAdminForm) Valid(v *validation.Validation) {
 }
 
 func (form *CommentAdminForm) SetFromComment(comment *models.Comment) {
-	utils.SetFormValues(comment, form)
+	forms.SetFormValues(comment, form)
 
 	if comment.User != nil {
 		form.User = comment.User.Id
@@ -300,7 +301,7 @@ func (form *CommentAdminForm) SetFromComment(comment *models.Comment) {
 }
 
 func (form *CommentAdminForm) SetToComment(comment *models.Comment) {
-	utils.SetFormValues(form, comment)
+	forms.SetFormValues(form, comment)
 
 	if comment.User == nil {
 		comment.User = &models.User{}

@@ -19,12 +19,11 @@ import (
 	"fmt"
 	"html/template"
 	"net/url"
-	"reflect"
 	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/validation"
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/beego/i18n"
 
 	"github.com/beego/wetalk/modules/auth"
@@ -118,7 +117,7 @@ func (this *BaseRouter) Prepare() {
 
 	// if method is GET then auto create a form once token
 	if this.Ctx.Request.Method == "GET" {
-		this.FormOnceCreate()
+		forms.FormOnceCreate(this)
 	}
 
 	if app, ok := this.AppController.(NestPreparer); ok {
@@ -319,129 +318,6 @@ func (this *BaseRouter) EndFlashRedirect() {
 	this.DelSession("on_redirect")
 }
 
-// check form once, void re-submit
-func (this *BaseRouter) FormOnceNotMatch() bool {
-	notMatch := false
-	recreat := false
-
-	// get token from request param / header
-	var value string
-	if vus, ok := this.Input()["_once"]; ok && len(vus) > 0 {
-		value = vus[0]
-	} else {
-		value = this.Ctx.Input.Header("X-Form-Once")
-	}
-
-	// exist in session
-	if v, ok := this.GetSession("form_once").(string); ok && v != "" {
-		// not match
-		if value != v {
-			notMatch = true
-		} else {
-			// if matched then re-creat once
-			recreat = true
-		}
-	}
-
-	this.FormOnceCreate(recreat)
-	return notMatch
-}
-
-// create form once html
-func (this *BaseRouter) FormOnceCreate(args ...bool) {
-	var value string
-	var creat bool
-	creat = len(args) > 0 && args[0]
-	if !creat {
-		if v, ok := this.GetSession("form_once").(string); ok && v != "" {
-			value = v
-		} else {
-			creat = true
-		}
-	}
-	if creat {
-		value = utils.GetRandomString(10)
-		this.SetSession("form_once", value)
-	}
-	this.Data["once_token"] = value
-	this.Data["once_html"] = template.HTML(`<input type="hidden" name="_once" value="` + value + `">`)
-}
-
-func (this *BaseRouter) validForm(form interface{}, names ...string) (bool, map[string]*validation.ValidationError) {
-	// parse request params to form ptr struct
-	utils.ParseForm(form, this.Input())
-
-	// Put data back in case users input invalid data for any section.
-	name := reflect.ValueOf(form).Elem().Type().Name()
-	if len(names) > 0 {
-		name = names[0]
-	}
-	this.Data[name] = form
-
-	errName := name + "Error"
-
-	// check form once
-	if this.FormOnceNotMatch() {
-		return false, nil
-	}
-
-	// Verify basic input.
-	valid := validation.Validation{}
-	if ok, _ := valid.Valid(form); !ok {
-		errs := valid.ErrorMap()
-		this.Data[errName] = &valid
-		return false, errs
-	}
-	return true, nil
-}
-
-// valid form and put errors to tempalte context
-func (this *BaseRouter) ValidForm(form interface{}, names ...string) bool {
-	valid, _ := this.validForm(form, names...)
-	return valid
-}
-
-// valid form and put errors to tempalte context
-func (this *BaseRouter) ValidFormSets(form interface{}, names ...string) bool {
-	valid, errs := this.validForm(form, names...)
-	this.setFormSets(form, errs, names...)
-	return valid
-}
-
-func (this *BaseRouter) SetFormSets(form interface{}, names ...string) *utils.FormSets {
-	return this.setFormSets(form, nil, names...)
-}
-
-func (this *BaseRouter) setFormSets(form interface{}, errs map[string]*validation.ValidationError, names ...string) *utils.FormSets {
-	formSets := utils.NewFormSets(form, errs, this.Locale)
-	name := reflect.ValueOf(form).Elem().Type().Name()
-	if len(names) > 0 {
-		name = names[0]
-	}
-	name += "Sets"
-	this.Data[name] = formSets
-
-	return formSets
-}
-
-// add valid error to FormError
-func (this *BaseRouter) SetFormError(form interface{}, fieldName, errMsg string, names ...string) {
-	name := reflect.ValueOf(form).Elem().Type().Name()
-	if len(names) > 0 {
-		name = names[0]
-	}
-	errName := name + "Error"
-	setsName := name + "Sets"
-
-	if valid, ok := this.Data[errName].(*validation.Validation); ok {
-		valid.SetError(fieldName, this.Tr(errMsg))
-	}
-
-	if fSets, ok := this.Data[setsName].(*utils.FormSets); ok {
-		fSets.SetError(fieldName, errMsg)
-	}
-}
-
 // check xsrf and show a friendly page
 func (this *BaseRouter) CheckXsrfCookie() bool {
 	return this.Controller.CheckXsrfCookie()
@@ -533,4 +409,8 @@ func (this *BaseRouter) setLang() bool {
 	this.Lang = lang
 
 	return isNeedRedir
+}
+
+func (this *BaseRouter) GetLocale() forms.FormLocaler {
+	return this.Locale
 }

@@ -15,10 +15,10 @@
 package post
 
 import (
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/astaxie/beego/validation"
 
 	"github.com/beego/wetalk/modules/models"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type TopicAdminForm struct {
@@ -51,11 +51,11 @@ func (form *TopicAdminForm) Valid(v *validation.Validation) {
 }
 
 func (form *TopicAdminForm) SetFromTopic(topic *models.Topic) {
-	utils.SetFormValues(topic, form)
+	forms.SetFormValues(topic, form)
 }
 
 func (form *TopicAdminForm) SetToTopic(topic *models.Topic) {
-	utils.SetFormValues(form, topic, "Id")
+	forms.SetFormValues(form, topic, "Id")
 }
 
 type CategoryAdminForm struct {
@@ -79,9 +79,9 @@ func (form *CategoryAdminForm) Valid(v *validation.Validation) {
 }
 
 func (form *CategoryAdminForm) SetFromCategory(cat *models.Category) {
-	utils.SetFormValues(cat, form)
+	forms.SetFormValues(cat, form)
 }
 
 func (form *CategoryAdminForm) SetToCategory(cat *models.Category) {
-	utils.SetFormValues(form, cat, "Id")
+	forms.SetFormValues(form, cat, "Id")
 }

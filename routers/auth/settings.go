@@ -16,6 +16,7 @@ package auth
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/auth"
 	"github.com/beego/wetalk/routers/base"
@@ -37,10 +38,10 @@ func (this *SettingsRouter) Profile() {
 
 	form := auth.ProfileForm{Locale: this.Locale}
 	form.SetFromUser(&this.User)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 
 	formPwd := auth.PasswordForm{}
-	this.SetFormSets(&formPwd)
+	forms.SetFormSets(this, &formPwd)
 }
 
 // ProfileSave implemented save user profile.
@@ -78,7 +79,7 @@ func (this *SettingsRouter) ProfileSave() {
 
 	switch action {
 	case "save-profile":
-		if this.ValidFormSets(&profileForm) {
+		if forms.ValidFormSets(this, &profileForm) {
 			if err := profileForm.SaveUserProfile(&this.User); err != nil {
 				beego.Error("ProfileSave: save-profile", err)
 			}
@@ -87,7 +88,7 @@ func (this *SettingsRouter) ProfileSave() {
 		}
 
 	case "change-password":
-		if this.ValidFormSets(&pwdForm) {
+		if forms.ValidFormSets(this, &pwdForm) {
 			// verify success and save new password
 			if err := auth.SaveNewPassword(&this.User, pwdForm.Password); err == nil {
 				this.FlashRedirect("/settings/profile", 302, "PasswordSave")
@@ -103,9 +104,9 @@ func (this *SettingsRouter) ProfileSave() {
 	}
 
 	if action != "save-profile" {
-		this.SetFormSets(&profileForm)
+		forms.SetFormSets(this, &profileForm)
 	}
 	if action != "change-password" {
-		this.SetFormSets(&pwdForm)
+		forms.SetFormSets(this, &pwdForm)
 	}
 }
