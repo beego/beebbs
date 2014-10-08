@@ -52,7 +52,7 @@ func (this *SearchRouter) Get() {
 	}
 
 	if len(posts) > 0 {
-		pagination.SetPaginator(this, pers, meta.TotalFound)
+		pagination.SetPaginator(this.Ctx, pers, meta.TotalFound)
 	}
 
 	this.Data["Posts"] = posts

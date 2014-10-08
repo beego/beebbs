@@ -96,7 +96,7 @@ func (this *UserRouter) Posts() {
 	qs := user.RecentPosts()
 	nums, _ := qs.Count()
 
-	pager := pagination.SetPaginator(this, limit, nums)
+	pager := pagination.SetPaginator(this.Ctx, limit, nums)
 
 	var posts []*models.Post
 	qs.Limit(limit, pager.Offset()).RelatedSel().All(&posts)
@@ -117,7 +117,7 @@ func (this *UserRouter) Comments() {
 	qs := user.RecentComments()
 	nums, _ := qs.Count()
 
-	pager := pagination.SetPaginator(this, limit, nums)
+	pager := pagination.SetPaginator(this.Ctx, limit, nums)
 
 	var comments []*models.Comment
 	qs.Limit(limit, pager.Offset()).RelatedSel().All(&comments)
@@ -138,7 +138,7 @@ func (this *UserRouter) getFollows(user *models.User, following bool) []map[stri
 
 	nums, _ := qs.Count()
 
-	pager := pagination.SetPaginator(this, limit, nums)
+	pager := pagination.SetPaginator(this.Ctx, limit, nums)
 
 	qs = qs.Limit(limit, pager.Offset())
 

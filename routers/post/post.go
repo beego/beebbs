@@ -91,7 +91,7 @@ func (this *PostListRouter) Category() {
 	qs = this.postsFilter(qs)
 
 	cnt, _ := models.CountObjects(qs)
-	pager := pagination.SetPaginator(this, pers, cnt)
+	pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 	qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -134,7 +134,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := pagination.SetPaginator(this, pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Updated").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -148,7 +148,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := pagination.SetPaginator(this, pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -162,7 +162,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := pagination.SetPaginator(this, pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -179,7 +179,7 @@ func (this *PostListRouter) Navs() {
 			qs = this.postsFilter(qs)
 
 			cnt, _ := models.CountObjects(qs)
-			pager := pagination.SetPaginator(this, pers, cnt)
+			pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 			qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -199,7 +199,7 @@ func (this *PostListRouter) Navs() {
 			qs = this.postsFilter(qs)
 
 			cnt, _ := models.CountObjects(qs)
-			pager := pagination.SetPaginator(this, pers, cnt)
+			pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 			qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -229,7 +229,7 @@ func (this *PostListRouter) Topic() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := pagination.SetPaginator(this, pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
