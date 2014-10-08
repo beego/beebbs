@@ -44,7 +44,7 @@ func (m Message) Content() string {
 	}
 
 	// create mail content
-	content := "From: " + m.User + "<" + m.From +
+	content := "From: \"" + m.User + "\" <" + m.From +
 		">\r\nSubject: " + m.Subject + "\r\nContent-Type: " + contentType + "\r\n\r\n" + m.Body
 	return content
 }
