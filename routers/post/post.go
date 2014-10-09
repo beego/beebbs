@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
@@ -321,7 +322,7 @@ func (this *PostRouter) New() {
 
 	post.ListCategories(&form.Categories)
 	post.ListTopics(&form.Topics)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 func (this *PostRouter) NewSubmit() {
@@ -342,7 +343,7 @@ func (this *PostRouter) NewSubmit() {
 
 	post.ListCategories(&form.Categories)
 	post.ListTopics(&form.Topics)
-	if !this.ValidFormSets(&form) {
+	if !forms.ValidFormSets(this, &form) {
 		return
 	}
 
@@ -398,7 +399,7 @@ func (this *PostRouter) Single() {
 	this.loadComments(&postMd, &comments)
 
 	form := post.CommentForm{}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 
 	post.PostBrowsersAdd(this.User.Id, this.Ctx.Input.IP(), &postMd)
 }
@@ -425,7 +426,7 @@ func (this *PostRouter) SingleSubmit() {
 	}()
 
 	form := post.CommentForm{}
-	if !this.ValidFormSets(&form) {
+	if !forms.ValidFormSets(this, &form) {
 		return
 	}
 
@@ -455,7 +456,7 @@ func (this *PostRouter) Edit() {
 	form.SetFromPost(&postMd)
 	post.ListCategories(&form.Categories)
 	post.ListTopics(&form.Topics)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 func (this *PostRouter) EditSubmit() {
@@ -474,7 +475,7 @@ func (this *PostRouter) EditSubmit() {
 	form.SetFromPost(&postMd)
 	post.ListCategories(&form.Categories)
 	post.ListTopics(&form.Topics)
-	if !this.ValidFormSets(&form) {
+	if !forms.ValidFormSets(this, &form) {
 		return
 	}
 

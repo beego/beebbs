@@ -19,10 +19,10 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/article"
 	"github.com/beego/wetalk/modules/models"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type ArticleAdminRouter struct {
@@ -51,13 +51,13 @@ func (this *ArticleAdminRouter) List() {
 // view for create object
 func (this *ArticleAdminRouter) Create() {
 	form := article.ArticleAdminForm{Create: true}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for new object save
 func (this *ArticleAdminRouter) Save() {
 	form := article.ArticleAdminForm{Create: true}
-	if !this.ValidFormSets(&form) {
+	if !forms.ValidFormSets(this, &form) {
 		return
 	}
 
@@ -76,18 +76,18 @@ func (this *ArticleAdminRouter) Save() {
 func (this *ArticleAdminRouter) Edit() {
 	form := article.ArticleAdminForm{}
 	form.SetFromArticle(&this.object)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for update object
 func (this *ArticleAdminRouter) Update() {
 	form := article.ArticleAdminForm{}
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
 	// get changed field names
-	changes := utils.FormChanges(&this.object, &form)
+	changes := forms.FormChanges(&this.object, &form)
 
 	url := fmt.Sprintf("/admin/article/%d", this.object.Id)
 
@@ -112,7 +112,7 @@ func (this *ArticleAdminRouter) Confirm() {
 
 // view for delete object
 func (this *ArticleAdminRouter) Delete() {
-	if this.FormOnceNotMatch() {
+	if forms.FormOnceNotMatch(this) {
 		return
 	}
 

@@ -31,6 +31,7 @@ import (
 	"github.com/astaxie/beego/cache"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/captcha"
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/beego/compress"
 	"github.com/beego/i18n"
 	"github.com/beego/social-auth"
@@ -42,28 +43,25 @@ const (
 )
 
 var (
-	AppName             string
-	AppVer              string
-	AppHost             string
-	AppUrl              string
-	AppLogo             string
-	EnforceRedirect     bool
-	AvatarURL           string
-	SecretKey           string
-	IsProMode           bool
-	ActiveCodeLives     int
-	ResetPwdCodeLives   int
-	DateFormat          string
-	DateTimeFormat      string
-	DateTimeShortFormat string
-	TimeZone            string
-	RealtimeRenderMD    bool
-	ImageSizeSmall      int
-	ImageSizeMiddle     int
-	ImageLinkAlphabets  []byte
-	ImageXSend          bool
-	ImageXSendHeader    string
-	Langs               []string
+	AppName            string
+	AppVer             string
+	AppHost            string
+	AppUrl             string
+	AppLogo            string
+	EnforceRedirect    bool
+	AvatarURL          string
+	SecretKey          string
+	IsProMode          bool
+	ActiveCodeLives    int
+	ResetPwdCodeLives  int
+	TimeZone           string
+	RealtimeRenderMD   bool
+	ImageSizeSmall     int
+	ImageSizeMiddle    int
+	ImageLinkAlphabets []byte
+	ImageXSend         bool
+	ImageXSendHeader   string
+	Langs              []string
 
 	LoginRememberDays int
 	LoginMaxRetries   int
@@ -256,9 +254,9 @@ func reloadConfig() {
 
 	EnforceRedirect = Cfg.MustBool("app", "enforce_redirect")
 
-	DateFormat = Cfg.MustValue("app", "date_format")
-	DateTimeFormat = Cfg.MustValue("app", "datetime_format")
-	DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
+	forms.DateOnlyFormat = Cfg.MustValue("app", "date_format")
+	forms.DateTimeFormat = Cfg.MustValue("app", "datetime_format")
+	forms.DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
 
 	SecretKey = Cfg.MustValue("app", "secret_key")
 	if len(SecretKey) == 0 {

@@ -24,6 +24,7 @@ import (
 	"time"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/beego/i18n"
 
 	"github.com/beego/wetalk/setting"
@@ -44,15 +45,15 @@ func boolicon(b bool) (s template.HTML) {
 }
 
 func date(t time.Time) string {
-	return beego.Date(t, setting.DateFormat)
+	return beego.Date(t, forms.DateOnlyFormat)
 }
 
 func datetime(t time.Time) string {
-	return beego.Date(t, setting.DateTimeFormat)
+	return beego.Date(t, forms.DateTimeFormat)
 }
 
 func datetimes(t time.Time) string {
-	return beego.Date(t, setting.DateTimeShortFormat)
+	return beego.Date(t, forms.DateTimeShortFormat)
 }
 
 func loadtimes(t time.Time) int {
@@ -97,7 +98,7 @@ func timesince(lang string, t time.Time) string {
 	case seconds < 60*60*24*100:
 		return i18n.Tr(lang, "days_ago", seconds/(60*60*24))
 	default:
-		return beego.Date(t, setting.DateFormat)
+		return beego.Date(t, forms.DateOnlyFormat)
 	}
 }
 

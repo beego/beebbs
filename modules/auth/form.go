@@ -17,6 +17,7 @@ package auth
 import (
 	"strings"
 
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/astaxie/beego/validation"
 	"github.com/beego/i18n"
 
@@ -215,7 +216,7 @@ func (form *ProfileForm) Valid(v *validation.Validation) {
 }
 
 func (form *ProfileForm) SetFromUser(user *models.User) {
-	utils.SetFormValues(user, form)
+	forms.SetFormValues(user, form)
 }
 
 func (form *ProfileForm) SaveUserProfile(user *models.User) error {
@@ -224,7 +225,7 @@ func (form *ProfileForm) SaveUserProfile(user *models.User) error {
 		form.GrEmail = utils.EncodeMd5(form.GrEmail)
 	}
 
-	changes := utils.FormChanges(user, form)
+	changes := forms.FormChanges(user, form)
 	if len(changes) > 0 {
 		// if email changed then need re-active
 		if user.Email != form.Email {
@@ -232,7 +233,7 @@ func (form *ProfileForm) SaveUserProfile(user *models.User) error {
 			changes = append(changes, "IsActive")
 		}
 
-		utils.SetFormValues(form, user)
+		forms.SetFormValues(form, user)
 		return user.Update(changes...)
 	}
 	return nil
@@ -389,7 +390,7 @@ func (form *UserAdminForm) Labels() map[string]string {
 }
 
 func (form *UserAdminForm) SetFromUser(user *models.User) {
-	utils.SetFormValues(user, form)
+	forms.SetFormValues(user, form)
 }
 
 func (form *UserAdminForm) SetToUser(user *models.User) {
@@ -398,5 +399,5 @@ func (form *UserAdminForm) SetToUser(user *models.User) {
 		form.GrEmail = utils.EncodeMd5(form.GrEmail)
 	}
 
-	utils.SetFormValues(form, user)
+	forms.SetFormValues(form, user)
 }

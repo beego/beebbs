@@ -19,10 +19,10 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
-	"github.com/beego/wetalk/modules/utils"
 )
 
 type PostAdminRouter struct {
@@ -58,13 +58,13 @@ func (this *PostAdminRouter) List() {
 // view for create object
 func (this *PostAdminRouter) Create() {
 	form := this.GetForm(true)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for new object save
 func (this *PostAdminRouter) Save() {
 	form := this.GetForm(true)
-	if !this.ValidFormSets(&form) {
+	if !forms.ValidFormSets(this, &form) {
 		return
 	}
 
@@ -83,18 +83,18 @@ func (this *PostAdminRouter) Save() {
 func (this *PostAdminRouter) Edit() {
 	form := this.GetForm(false)
 	form.SetFromPost(&this.object)
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // view for update object
 func (this *PostAdminRouter) Update() {
 	form := this.GetForm(false)
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
 	// get changed field names
-	changes := utils.FormChanges(&this.object, &form)
+	changes := forms.FormChanges(&this.object, &form)
 
 	url := fmt.Sprintf("/admin/post/%d", this.object.Id)
 
@@ -119,7 +119,7 @@ func (this *PostAdminRouter) Confirm() {
 
 // view for delete object
 func (this *PostAdminRouter) Delete() {
-	if this.FormOnceNotMatch() {
+	if forms.FormOnceNotMatch(this) {
 		return
 	}
 

@@ -15,8 +15,10 @@
 package auth
 
 import (
-	"github.com/astaxie/beego"
 	"strings"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils/forms"
 
 	"github.com/beego/wetalk/modules/auth"
 	"github.com/beego/wetalk/modules/models"
@@ -50,7 +52,7 @@ func (this *LoginRouter) Get() {
 	}
 
 	form := auth.LoginForm{}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // Login implemented user login.
@@ -69,7 +71,7 @@ func (this *LoginRouter) Login() {
 
 	form := auth.LoginForm{}
 	// valid form and put errors to template context
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		if this.IsAjax() {
 			goto ajaxError
 		}
@@ -143,7 +145,7 @@ func (this *RegisterRouter) Get() {
 	this.TplNames = "auth/register.html"
 
 	form := auth.RegisterForm{Locale: this.Locale}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // Register implemented Post method for RegisterRouter.
@@ -158,7 +160,7 @@ func (this *RegisterRouter) Register() {
 
 	form := auth.RegisterForm{Locale: this.Locale}
 	// valid form and put errors to template context
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
@@ -234,7 +236,7 @@ func (this *ForgotRouter) Get() {
 	}
 
 	form := auth.ForgotForm{}
-	this.SetFormSets(&form)
+	forms.SetFormSets(this, &form)
 }
 
 // Get implemented Post method for ForgotRouter.
@@ -249,7 +251,7 @@ func (this *ForgotRouter) Post() {
 	var user models.User
 	form := auth.ForgotForm{User: &user}
 	// valid form and put errors to template context
-	if this.ValidFormSets(&form) == false {
+	if forms.ValidFormSets(this, &form) == false {
 		return
 	}
 
@@ -271,7 +273,7 @@ func (this *ForgotRouter) Reset() {
 	if auth.VerifyUserResetPwdCode(&user, code) {
 		this.Data["Success"] = true
 		form := auth.ResetPwdForm{}
-		this.SetFormSets(&form)
+		forms.SetFormSets(this, &form)
 	} else {
 		this.Data["Success"] = false
 	}
@@ -290,7 +292,7 @@ func (this *ForgotRouter) ResetPost() {
 		this.Data["Success"] = true
 
 		form := auth.ResetPwdForm{}
-		if this.ValidFormSets(&form) == false {
+		if forms.ValidFormSets(this, &form) == false {
 			return
 		}
 
