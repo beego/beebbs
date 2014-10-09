@@ -31,6 +31,7 @@ import (
 	"github.com/astaxie/beego/cache"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/captcha"
+	"github.com/astaxie/beego/utils/forms"
 	"github.com/beego/compress"
 	"github.com/beego/i18n"
 	"github.com/beego/social-auth"
@@ -253,9 +254,9 @@ func reloadConfig() {
 
 	EnforceRedirect = Cfg.MustBool("app", "enforce_redirect")
 
-	beego.DateOnlyFormat = Cfg.MustValue("app", "date_format")
-	beego.DateTimeFormat = Cfg.MustValue("app", "datetime_format")
-	beego.DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
+	forms.DateOnlyFormat = Cfg.MustValue("app", "date_format")
+	forms.DateTimeFormat = Cfg.MustValue("app", "datetime_format")
+	forms.DateTimeShortFormat = Cfg.MustValue("app", "datetime_short_format")
 
 	SecretKey = Cfg.MustValue("app", "secret_key")
 	if len(SecretKey) == 0 {
