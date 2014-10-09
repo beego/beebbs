@@ -43,25 +43,25 @@ const (
 )
 
 var (
-	AppName             string
-	AppVer              string
-	AppHost             string
-	AppUrl              string
-	AppLogo             string
-	EnforceRedirect     bool
-	AvatarURL           string
-	SecretKey           string
-	IsProMode           bool
-	ActiveCodeLives     int
-	ResetPwdCodeLives   int
-	TimeZone            string
-	RealtimeRenderMD    bool
-	ImageSizeSmall      int
-	ImageSizeMiddle     int
-	ImageLinkAlphabets  []byte
-	ImageXSend          bool
-	ImageXSendHeader    string
-	Langs               []string
+	AppName            string
+	AppVer             string
+	AppHost            string
+	AppUrl             string
+	AppLogo            string
+	EnforceRedirect    bool
+	AvatarURL          string
+	SecretKey          string
+	IsProMode          bool
+	ActiveCodeLives    int
+	ResetPwdCodeLives  int
+	TimeZone           string
+	RealtimeRenderMD   bool
+	ImageSizeSmall     int
+	ImageSizeMiddle    int
+	ImageLinkAlphabets []byte
+	ImageXSend         bool
+	ImageXSendHeader   string
+	Langs              []string
 
 	LoginRememberDays int
 	LoginMaxRetries   int
