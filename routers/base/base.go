@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/utils/forms"
 	"github.com/beego/i18n"
 
@@ -413,4 +414,8 @@ func (this *BaseRouter) setLang() bool {
 
 func (this *BaseRouter) GetLocale() forms.FormLocaler {
 	return this.Locale
+}
+
+func (this *BaseRouter) GetCtx() *context.Context {
+	return this.Ctx
 }
