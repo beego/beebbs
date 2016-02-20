@@ -56,8 +56,6 @@ func main() {
 
 	initialize()
 
-	beego.Info("AppPath:", beego.AppPath)
-
 	if setting.IsProMode {
 		beego.Info("Product mode enabled")
 	} else {
