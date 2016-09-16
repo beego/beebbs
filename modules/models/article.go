@@ -28,7 +28,7 @@ import (
 type Article struct {
 	Id               int
 	User             *User     `orm:"rel(fk)"`
-	Uri              string    `orm:"size(60);unqiue"`
+	Uri              string    `orm:"size(60);unique"`
 	Title            string    `orm:"size(60)"`
 	Content          string    `orm:"type(text)"`
 	ContentCache     string    `orm:"type(text)"`
