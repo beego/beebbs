@@ -18,6 +18,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils/pagination"
 
 	"github.com/beego/wetalk/modules/post"
 	"github.com/beego/wetalk/modules/utils"
@@ -51,7 +52,7 @@ func (this *SearchRouter) Get() {
 	}
 
 	if len(posts) > 0 {
-		this.SetPaginator(pers, meta.TotalFound)
+		pagination.SetPaginator(this.Ctx, pers, meta.TotalFound)
 	}
 
 	this.Data["Posts"] = posts

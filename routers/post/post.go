@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/pagination"
 
 	"github.com/beego/wetalk/modules/models"
 	"github.com/beego/wetalk/modules/post"
@@ -90,7 +91,7 @@ func (this *PostListRouter) Category() {
 	qs = this.postsFilter(qs)
 
 	cnt, _ := models.CountObjects(qs)
-	pager := this.SetPaginator(pers, cnt)
+	pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 	qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -133,7 +134,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := this.SetPaginator(pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Updated").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -147,7 +148,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := this.SetPaginator(pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -161,7 +162,7 @@ func (this *PostListRouter) Navs() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := this.SetPaginator(pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -178,7 +179,7 @@ func (this *PostListRouter) Navs() {
 			qs = this.postsFilter(qs)
 
 			cnt, _ := models.CountObjects(qs)
-			pager := this.SetPaginator(pers, cnt)
+			pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 			qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -198,7 +199,7 @@ func (this *PostListRouter) Navs() {
 			qs = this.postsFilter(qs)
 
 			cnt, _ := models.CountObjects(qs)
-			pager := this.SetPaginator(pers, cnt)
+			pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 			qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
@@ -228,7 +229,7 @@ func (this *PostListRouter) Topic() {
 		qs = this.postsFilter(qs)
 
 		cnt, _ := models.CountObjects(qs)
-		pager := this.SetPaginator(pers, cnt)
+		pager := pagination.SetPaginator(this.Ctx, pers, cnt)
 
 		qs = qs.OrderBy("-Created").Limit(pers, pager.Offset()).RelatedSel()
 
