@@ -3,8 +3,7 @@ html, body {
 }
 
 body {
-  background-color: #eaeaea;
-  background-image: url('/static/img/bg.gif');
+  background-color: #fafafa;
 }
 
 body,
@@ -65,10 +64,10 @@ textarea.form-control {
 .navbar .navbar-menu .avatar > a > img {
   width: 44px;
   height: 44px;
-  padding: 2px;
-  border: 2px solid #e6e6e6;
+  padding: 0px;
+  border: 1px solid #e6e6e6;
   display: block;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 #main {
@@ -110,10 +109,10 @@ textarea.form-control {
 /* box */
 .box {
     background-color: #fafafa;
-    border-bottom: 1px solid #e2e2e2;
+    border: 1px solid #e2e2e2;
     border-radius: 3px;
-    -webkit-box-shadow: 1px 0 4px rgba(0, 0, 0, 0.20);
-    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.20);
+    /* -webkit-box-shadow: 1px 0 4px rgba(0, 0, 0, 0.20);*/
+    /* box-shadow: 1px 0 4px rgba(0, 0, 0, 0.20);*/
 }
 
 .box.nobg {
@@ -125,7 +124,6 @@ textarea.form-control {
 
 .cell {
   padding: 10px 10px;
-  border-top: 2px solid #fff;
   border-bottom: 1px solid #e2e2e2;
 }
 
