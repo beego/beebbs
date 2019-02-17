@@ -63,7 +63,7 @@ func NumberDecode(token string, alphabet []byte) string {
 	return x.String()
 }
 
-// Random generate string
+// GetRandomString: Random generate string
 func GetRandomString(n int) string {
 	const alphanum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 	var bytes = make([]byte, n)
@@ -112,7 +112,7 @@ func PBKDF2(password, salt []byte, iter, keyLen int, h func() hash.Hash) []byte 
 	return dk[:keyLen]
 }
 
-// verify time limit code
+// VerifyTimeLimitCode: verify time limit code
 func VerifyTimeLimitCode(data string, minutes int, code string) bool {
 	if len(code) <= 18 {
 		return false
@@ -140,7 +140,7 @@ func VerifyTimeLimitCode(data string, minutes int, code string) bool {
 
 const TimeLimitCodeLength = 12 + 6 + 40
 
-// create a time limit code
+// CreateTimeLimitCode: create a time limit code
 // code format: 12 length date time string + 6 minutes string + 40 sha1 encoded string
 func CreateTimeLimitCode(data string, minutes int, startInf interface{}) string {
 	format := "YmdHi"
@@ -171,14 +171,14 @@ func CreateTimeLimitCode(data string, minutes int, startInf interface{}) string 
 	return code
 }
 
-// Encode string to md5 hex value
+// EncodeMd5: Encode string to md5 hex value
 func EncodeMd5(str string) string {
 	m := md5.New()
 	m.Write([]byte(str))
 	return hex.EncodeToString(m.Sum(nil))
 }
 
-// use pbkdf2 encode password
+// EncodePassword: use pbkdf2 encode password
 func EncodePassword(rawPwd string, salt string) string {
 	pwd := PBKDF2([]byte(rawPwd), []byte(salt), 10000, 50, sha256.New)
 	return hex.EncodeToString(pwd)
@@ -308,7 +308,7 @@ func (f StrTo) String() string {
 	return ""
 }
 
-// convert any type to string
+// ToStr: convert any type to string
 func ToStr(value interface{}, args ...int) (s string) {
 	switch v := value.(type) {
 	case bool:
@@ -347,7 +347,7 @@ func ToStr(value interface{}, args ...int) (s string) {
 	return s
 }
 
-// convert any numeric value to int64
+// ToInt64: convert any numeric value to int64
 func ToInt64(value interface{}) (d int64, err error) {
 	val := reflect.ValueOf(value)
 	switch value.(type) {

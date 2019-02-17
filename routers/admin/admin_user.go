@@ -38,7 +38,7 @@ func (this *UserAdminRouter) ObjectQs() orm.QuerySeter {
 	return models.Users().RelatedSel()
 }
 
-// view for list model data
+// List: view for list model data
 func (this *UserAdminRouter) List() {
 	var users []models.User
 	qs := models.Users()
@@ -48,13 +48,13 @@ func (this *UserAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *UserAdminRouter) Create() {
 	form := auth.UserAdminForm{Create: true}
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *UserAdminRouter) Save() {
 	form := auth.UserAdminForm{Create: true}
 	if this.ValidFormSets(&form) == false {
@@ -72,14 +72,14 @@ func (this *UserAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *UserAdminRouter) Edit() {
 	form := auth.UserAdminForm{}
 	form.SetFromUser(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *UserAdminRouter) Update() {
 	form := auth.UserAdminForm{Id: this.object.Id}
 	if this.ValidFormSets(&form) == false {
@@ -106,11 +106,11 @@ func (this *UserAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *UserAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *UserAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return

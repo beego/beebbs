@@ -59,7 +59,7 @@ func CanRegistered(userName string, email string) (bool, bool, error) {
 	return e1, e2, nil
 }
 
-// check if exist user by username or email
+// HasUser checks if exist user by username or email
 func HasUser(user *models.User, username string) bool {
 	var err error
 	qs := orm.NewOrm()
@@ -76,7 +76,7 @@ func HasUser(user *models.User, username string) bool {
 	return false
 }
 
-// register create user
+// RegisterUser: register create user
 func RegisterUser(user *models.User, username, email, password string) error {
 	// use random salt encode password
 	salt := models.GetUserSalt()
@@ -97,14 +97,14 @@ func RegisterUser(user *models.User, username, email, password string) error {
 	return user.Insert()
 }
 
-// set a new password to user
+// SaveNewPassword: set a new password to user
 func SaveNewPassword(user *models.User, password string) error {
 	salt := models.GetUserSalt()
 	user.Password = fmt.Sprintf("%s$%s", salt, utils.EncodePassword(password, salt))
 	return user.Update("Password", "Rands", "Updated")
 }
 
-// get login redirect url from cookie
+// GetLoginRedirect gets login redirect url from cookie
 func GetLoginRedirect(ctx *context.Context) string {
 	loginRedirect := strings.TrimSpace(ctx.GetCookie("login_to"))
 	if utils.IsMatchHost(loginRedirect) == false {
@@ -115,7 +115,7 @@ func GetLoginRedirect(ctx *context.Context) string {
 	return loginRedirect
 }
 
-// login user
+// LoginUser: login user
 func LoginUser(user *models.User, ctx *context.Context, remember bool) {
 	// werid way of beego session regenerate id...
 	ctx.Input.CruSession.SessionRelease(ctx.ResponseWriter)
@@ -167,7 +167,7 @@ func LoginUserFromRememberCookie(user *models.User, ctx *context.Context) (succe
 	return true
 }
 
-// logout user
+// LogoutUser: logout user
 func LogoutUser(ctx *context.Context) {
 	DeleteRememberCookie(ctx)
 	ctx.Input.CruSession.Delete("auth_user_id")
@@ -182,7 +182,7 @@ func GetUserIdFromSession(sess session.Store) int {
 	return 0
 }
 
-// get user if key exist in session
+// GetUserFromSession gets user if key exist in session
 func GetUserFromSession(user *models.User, sess session.Store) bool {
 	id := GetUserIdFromSession(sess)
 	if id > 0 {
@@ -196,7 +196,7 @@ func GetUserFromSession(user *models.User, sess session.Store) bool {
 	return false
 }
 
-// verify username/email and password
+// VerifyUser: verify username/email and password
 func VerifyUser(user *models.User, username, password string) (success bool) {
 	// search user by username or email
 	if HasUser(user, username) == false {
@@ -217,7 +217,7 @@ func VerifyUser(user *models.User, username, password string) (success bool) {
 	return
 }
 
-// compare raw password and encoded password
+// VerifyPassword compares raw password and encoded password
 func VerifyPassword(rawPwd, encodedPwd string) bool {
 
 	// for discuz accounts
@@ -255,7 +255,7 @@ func getVerifyUser(user *models.User, code string) bool {
 	return false
 }
 
-// verify active code when active account
+// VerifyUserActiveCode: verify active code when active account
 func VerifyUserActiveCode(user *models.User, code string) bool {
 	minutes := setting.ActiveCodeLives
 
@@ -270,7 +270,7 @@ func VerifyUserActiveCode(user *models.User, code string) bool {
 	return false
 }
 
-// create a time limit code for user active
+// CreateUserActiveCode: create a time limit code for user active
 func CreateUserActiveCode(user *models.User, startInf interface{}) string {
 	minutes := setting.ActiveCodeLives
 	data := utils.ToStr(user.Id) + user.Email + user.UserName + user.Password + user.Rands
@@ -281,7 +281,7 @@ func CreateUserActiveCode(user *models.User, startInf interface{}) string {
 	return code
 }
 
-// verify code when reset password
+// VerifyUserResetPwdCode: verify code when reset password
 func VerifyUserResetPwdCode(user *models.User, code string) bool {
 	minutes := setting.ResetPwdCodeLives
 
@@ -296,7 +296,7 @@ func VerifyUserResetPwdCode(user *models.User, code string) bool {
 	return false
 }
 
-// create a time limit code for user reset password
+// CreateUserResetPwdCode: create a time limit code for user reset password
 func CreateUserResetPwdCode(user *models.User, startInf interface{}) string {
 	minutes := setting.ResetPwdCodeLives
 	data := utils.ToStr(user.Id) + user.Email + user.UserName + user.Password + user.Rands + user.Updated.String()

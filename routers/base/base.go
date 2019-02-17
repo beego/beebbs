@@ -126,7 +126,7 @@ func (this *BaseRouter) Prepare() {
 	}
 }
 
-// on router finished
+// Finish: on router finished
 func (this *BaseRouter) Finish() {
 
 }
@@ -147,7 +147,7 @@ func (this *BaseRouter) LoginUser(user *models.User, remember bool) string {
 	return loginRedirect
 }
 
-// check if user not active then redirect
+// CheckActiveRedirect checks if user not active then redirect
 func (this *BaseRouter) CheckActiveRedirect(args ...interface{}) bool {
 	var redirect_to string
 	code := 302
@@ -188,7 +188,7 @@ func (this *BaseRouter) CheckActiveRedirect(args ...interface{}) bool {
 
 }
 
-// check if not login then redirect
+// CheckLoginRedirect checks if not login then redirect
 func (this *BaseRouter) CheckLoginRedirect(args ...interface{}) bool {
 	var redirect_to string
 	code := 302
@@ -232,7 +232,7 @@ func (this *BaseRouter) CheckLoginRedirect(args ...interface{}) bool {
 	return false
 }
 
-// read beego flash message
+// FlashRead reads beego flash message
 func (this *BaseRouter) FlashRead(key string) (string, bool) {
 	if data, ok := this.Data["flash"].(map[string]string); ok {
 		value, ok := data[key]
@@ -241,14 +241,14 @@ func (this *BaseRouter) FlashRead(key string) (string, bool) {
 	return "", false
 }
 
-// write beego flash message
+// FlashWrite writes beego flash message
 func (this *BaseRouter) FlashWrite(key string, value string) {
 	flash := beego.NewFlash()
 	flash.Data[key] = value
 	flash.Store(&this.Controller)
 }
 
-// check flash redirect, ensure browser redirect to uri and display flash message.
+// CheckFlashRedirect checks flash redirect, ensure browser redirect to uri and display flash message.
 func (this *BaseRouter) CheckFlashRedirect(value string) (match bool, redirect bool) {
 	v := this.GetSession("on_redirect")
 	if params, ok := v.([]interface{}); ok {
@@ -290,7 +290,7 @@ end:
 	return match, redirect
 }
 
-// set flash redirect
+// FlashRedirect: set flash redirect
 func (this *BaseRouter) FlashRedirect(uri string, code int, flag string, args ...interface{}) {
 	flagVal := "true"
 	times := 0
@@ -314,12 +314,12 @@ func (this *BaseRouter) FlashRedirect(uri string, code int, flag string, args ..
 	this.Redirect(uri, code)
 }
 
-// clear flash redirect
+// EndFlashRedirect clears flash redirect
 func (this *BaseRouter) EndFlashRedirect() {
 	this.DelSession("on_redirect")
 }
 
-// check form once, void re-submit
+// FormOnceNotMatch checks form once, void re-submit
 func (this *BaseRouter) FormOnceNotMatch() bool {
 	notMatch := false
 	recreat := false
@@ -347,7 +347,7 @@ func (this *BaseRouter) FormOnceNotMatch() bool {
 	return notMatch
 }
 
-// create form once html
+// FormOnceCreate: create form once html
 func (this *BaseRouter) FormOnceCreate(args ...bool) {
 	var value string
 	var creat bool
@@ -395,13 +395,13 @@ func (this *BaseRouter) validForm(form interface{}, names ...string) (bool, map[
 	return true, nil
 }
 
-// valid form and put errors to tempalte context
+// ValidForm: valid form and put errors to tempalte context
 func (this *BaseRouter) ValidForm(form interface{}, names ...string) bool {
 	valid, _ := this.validForm(form, names...)
 	return valid
 }
 
-// valid form and put errors to tempalte context
+// ValidFormSets: valid form and put errors to tempalte context
 func (this *BaseRouter) ValidFormSets(form interface{}, names ...string) bool {
 	valid, errs := this.validForm(form, names...)
 	this.setFormSets(form, errs, names...)
@@ -424,7 +424,7 @@ func (this *BaseRouter) setFormSets(form interface{}, errs map[string]*validatio
 	return formSets
 }
 
-// add valid error to FormError
+// SetFormError adds valid error to FormError
 func (this *BaseRouter) SetFormError(form interface{}, fieldName, errMsg string, names ...string) {
 	name := reflect.ValueOf(form).Elem().Type().Name()
 	if len(names) > 0 {
@@ -442,7 +442,7 @@ func (this *BaseRouter) SetFormError(form interface{}, fieldName, errMsg string,
 	}
 }
 
-// check xsrf and show a friendly page
+// CheckXsrfCookie checks xsrf and show a friendly page
 func (this *BaseRouter) CheckXsrfCookie() bool {
 	return this.Controller.CheckXSRFCookie()
 }

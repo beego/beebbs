@@ -188,7 +188,7 @@ func init() {
 	orm.RegisterModel(new(Setting), new(User), new(Follow))
 }
 
-// return a user salt token
+// GetUserSalt returns a user salt token
 func GetUserSalt() string {
 	return utils.GetRandomString(10)
 }

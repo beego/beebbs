@@ -19,7 +19,7 @@ import (
 	"github.com/beego/wetalk/setting"
 )
 
-// Create New mail message use MailFrom and MailUser
+// NewMailMessage: Create New mail message use MailFrom and MailUser
 func NewMailMessage(To []string, subject, body string) Message {
 	msg := NewHtmlMessage(To, setting.MailFrom, subject, body)
 	msg.User = setting.MailUser

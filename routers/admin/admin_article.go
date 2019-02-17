@@ -38,7 +38,7 @@ func (this *ArticleAdminRouter) ObjectQs() orm.QuerySeter {
 	return models.Articles().RelatedSel()
 }
 
-// view for list model data
+// List: view for list model data
 func (this *ArticleAdminRouter) List() {
 	var articles []models.Article
 	qs := models.Articles().RelatedSel()
@@ -48,13 +48,13 @@ func (this *ArticleAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *ArticleAdminRouter) Create() {
 	form := article.ArticleAdminForm{Create: true}
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *ArticleAdminRouter) Save() {
 	form := article.ArticleAdminForm{Create: true}
 	if !this.ValidFormSets(&form) {
@@ -72,14 +72,14 @@ func (this *ArticleAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *ArticleAdminRouter) Edit() {
 	form := article.ArticleAdminForm{}
 	form.SetFromArticle(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *ArticleAdminRouter) Update() {
 	form := article.ArticleAdminForm{}
 	if this.ValidFormSets(&form) == false {
@@ -106,11 +106,11 @@ func (this *ArticleAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *ArticleAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *ArticleAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return
