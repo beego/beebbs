@@ -38,7 +38,7 @@ func (this *CategoryAdminRouter) ObjectQs() orm.QuerySeter {
 	return models.Categories().RelatedSel()
 }
 
-// view for list model data
+// List: view for list model data
 func (this *CategoryAdminRouter) List() {
 	var cats []models.Category
 	qs := models.Categories().RelatedSel()
@@ -48,13 +48,13 @@ func (this *CategoryAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *CategoryAdminRouter) Create() {
 	form := post.CategoryAdminForm{Create: true}
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *CategoryAdminRouter) Save() {
 	form := post.CategoryAdminForm{Create: true}
 	if this.ValidFormSets(&form) == false {
@@ -72,14 +72,14 @@ func (this *CategoryAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *CategoryAdminRouter) Edit() {
 	form := post.CategoryAdminForm{}
 	form.SetFromCategory(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *CategoryAdminRouter) Update() {
 	form := post.CategoryAdminForm{Id: this.object.Id}
 	if this.ValidFormSets(&form) == false {
@@ -106,11 +106,11 @@ func (this *CategoryAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *CategoryAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *CategoryAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return

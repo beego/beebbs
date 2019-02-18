@@ -66,12 +66,12 @@ func (*fakeLocale) Tr(text string, args ...interface{}) string {
 
 var fakeLocaler FormLocaler = new(fakeLocale)
 
-// register a custom label/input creater
+// RegisterFieldCreater: register a custom label/input creater
 func RegisterFieldCreater(name string, field FieldCreater) {
 	customCreaters[name] = field
 }
 
-// register a custom label/input creater
+// RegisterFieldFilter: register a custom label/input creater
 func RegisterFieldFilter(name string, field FieldFilter) {
 	customFilters[name] = field
 }
@@ -114,7 +114,7 @@ func (this *FormSets) SetError(fieldName, errMsg string) {
 	}
 }
 
-// create formSets for generate label/field html code
+// NewFormSets: create formSets for generate label/field html code
 func NewFormSets(form interface{}, errs map[string]*validation.Error, locale FormLocaler) *FormSets {
 	fSets := new(FormSets)
 	fSets.errs = errs
@@ -476,7 +476,7 @@ func initExtraField() {
 	})
 }
 
-// parse request.Form values to form
+// ParseForm: parse request.Form values to form
 func ParseForm(form interface{}, values url.Values) {
 	val := reflect.ValueOf(form)
 	elm := reflect.Indirect(val)
@@ -558,7 +558,7 @@ func panicAssertStructPtr(val reflect.Value) {
 	panic(fmt.Errorf("%s must be a struct pointer", val.Type().Name()))
 }
 
-// set values from one struct to other struct
+// SetFormValues: set values from one struct to other struct
 // both need ptr struct
 func SetFormValues(from interface{}, to interface{}, skips ...string) {
 	val := reflect.ValueOf(from)
@@ -632,7 +632,7 @@ outFor:
 	}
 }
 
-// compare field values between two struct pointer
+// FormChanges compares field values between two struct pointer
 // return changed field names
 func FormChanges(base interface{}, modified interface{}, skips ...string) (fields []string) {
 	val := reflect.ValueOf(base)

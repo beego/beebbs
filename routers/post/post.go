@@ -51,7 +51,7 @@ func (this *PostListRouter) postsFilter(qs orm.QuerySeter) orm.QuerySeter {
 	return qs
 }
 
-// Get implemented Get method for HomeRouter.
+// Home gets implemented Get method for HomeRouter.
 func (this *PostListRouter) Home() {
 	this.Data["IsHome"] = true
 	this.TplName = "post/home.html"
@@ -73,7 +73,7 @@ func (this *PostListRouter) Home() {
 	this.Data["Topics"] = topics
 }
 
-// Get implemented Get method for HomeRouter.
+// Category gets implemented Get method for HomeRouter.
 func (this *PostListRouter) Category() {
 	this.TplName = "post/category.html"
 
@@ -109,7 +109,7 @@ func (this *PostListRouter) Category() {
 	this.setTopicsOfCat(&topics, &cat)
 }
 
-// Get implemented Get method for HomeRouter.
+// Navs gets implemented Get method for HomeRouter.
 func (this *PostListRouter) Navs() {
 	slug := this.GetString(":slug")
 
@@ -209,7 +209,7 @@ func (this *PostListRouter) Navs() {
 	this.Data["Posts"] = posts
 }
 
-// Get implemented Get method for HomeRouter.
+// Topic gets implemented Get method for HomeRouter.
 func (this *PostListRouter) Topic() {
 	slug := this.GetString(":slug")
 
@@ -247,7 +247,7 @@ func (this *PostListRouter) Topic() {
 	}
 }
 
-// Get implemented Get method for HomeRouter.
+// TopicSubmit gets implemented Get method for HomeRouter.
 func (this *PostListRouter) TopicSubmit() {
 	slug := this.GetString(":slug")
 

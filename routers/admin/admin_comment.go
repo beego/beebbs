@@ -38,7 +38,7 @@ func (this *CommentAdminRouter) ObjectQs() orm.QuerySeter {
 	return models.Comments().RelatedSel()
 }
 
-// view for list model data
+// List: view for list model data
 func (this *CommentAdminRouter) List() {
 	var comments []models.Comment
 	qs := models.Comments().RelatedSel()
@@ -48,13 +48,13 @@ func (this *CommentAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *CommentAdminRouter) Create() {
 	form := post.CommentAdminForm{Create: true}
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *CommentAdminRouter) Save() {
 	form := post.CommentAdminForm{Create: true}
 	if this.ValidFormSets(&form) == false {
@@ -72,14 +72,14 @@ func (this *CommentAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *CommentAdminRouter) Edit() {
 	form := post.CommentAdminForm{}
 	form.SetFromComment(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *CommentAdminRouter) Update() {
 	form := post.CommentAdminForm{}
 	if this.ValidFormSets(&form) == false {
@@ -106,11 +106,11 @@ func (this *CommentAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *CommentAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *CommentAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return

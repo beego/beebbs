@@ -24,7 +24,7 @@ import (
 	"github.com/beego/wetalk/modules/utils"
 )
 
-// Send user register mail with active code
+// SendRegisterMail: Send user register mail with active code
 func SendRegisterMail(locale i18n.Locale, user *models.User) {
 	code := CreateUserActiveCode(user, nil)
 
@@ -41,7 +41,7 @@ func SendRegisterMail(locale i18n.Locale, user *models.User) {
 	mailer.SendAsync(msg)
 }
 
-// Send user reset password mail with verify code
+// SendResetPwdMail: Send user reset password mail with verify code
 func SendResetPwdMail(locale i18n.Locale, user *models.User) {
 	code := CreateUserResetPwdCode(user, nil)
 
@@ -58,7 +58,7 @@ func SendResetPwdMail(locale i18n.Locale, user *models.User) {
 	mailer.SendAsync(msg)
 }
 
-// Send email verify active email.
+// SendActiveMail: Send email verify active email.
 func SendActiveMail(locale i18n.Locale, user *models.User) {
 	code := CreateUserActiveCode(user, nil)
 

@@ -35,7 +35,7 @@ type Message struct {
 	Info    string
 }
 
-// create mail content
+// Content: create mail content
 func (m Message) Content() string {
 	// set mail type
 	contentType := "text/plain; charset=UTF-8"
@@ -49,7 +49,7 @@ func (m Message) Content() string {
 	return content
 }
 
-// Direct Send mail message
+// Send: Direct Send mail message
 func Send(msg Message) (int, error) {
 	host := strings.Split(setting.MailHost, ":")
 
@@ -91,7 +91,7 @@ func Send(msg Message) (int, error) {
 	}
 }
 
-// Async Send mail message
+// SendAsync: Async Send mail message
 func SendAsync(msg Message) {
 	// TODO may be need pools limit concurrent nums
 	go func() {
@@ -107,7 +107,7 @@ func SendAsync(msg Message) {
 	}()
 }
 
-// Create html mail message
+// NewHtmlMessage: Create html mail message
 func NewHtmlMessage(To []string, From, Subject, Body string) Message {
 	return Message{
 		To:      To,

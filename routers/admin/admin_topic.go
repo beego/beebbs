@@ -38,7 +38,7 @@ func (this *TopicAdminRouter) ObjectQs() orm.QuerySeter {
 	return models.Topics().RelatedSel()
 }
 
-// view for list model data
+// List: view for list model data
 func (this *TopicAdminRouter) List() {
 	var topics []models.Topic
 	qs := models.Topics().RelatedSel()
@@ -48,13 +48,13 @@ func (this *TopicAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *TopicAdminRouter) Create() {
 	form := post.TopicAdminForm{Create: true}
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *TopicAdminRouter) Save() {
 	form := post.TopicAdminForm{Create: true}
 	if this.ValidFormSets(&form) == false {
@@ -72,14 +72,14 @@ func (this *TopicAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *TopicAdminRouter) Edit() {
 	form := post.TopicAdminForm{}
 	form.SetFromTopic(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *TopicAdminRouter) Update() {
 	form := post.TopicAdminForm{Id: this.object.Id}
 	if this.ValidFormSets(&form) == false {
@@ -106,11 +106,11 @@ func (this *TopicAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *TopicAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *TopicAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return

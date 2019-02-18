@@ -98,7 +98,7 @@ func (this *ModelAdminRouter) ModelPrepare() {
 	}
 }
 
-// query objects and set to template
+// SetObjects: query objects and set to template
 func (this *ModelAdminRouter) SetObjects(qs orm.QuerySeter, objects interface{}) error {
 	cnt, err := qs.Count()
 	if err != nil {
@@ -115,7 +115,7 @@ func (this *ModelAdminRouter) SetObjects(qs orm.QuerySeter, objects interface{})
 	return nil
 }
 
-// query object and set to template
+// QueryObject: query object and set to template
 func (this *ModelAdminRouter) QueryObject() bool {
 	id, _ := utils.StrTo(this.GetString(":id")).Int()
 	if id <= 0 {

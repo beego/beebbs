@@ -237,7 +237,7 @@ func (this *ForgotRouter) Get() {
 	this.SetFormSets(&form)
 }
 
-// Get implemented Post method for ForgotRouter.
+// Post gets implemented Post method for ForgotRouter.
 func (this *ForgotRouter) Post() {
 	this.TplName = "auth/forgot.html"
 
@@ -277,7 +277,7 @@ func (this *ForgotRouter) Reset() {
 	}
 }
 
-// Reset implemented user password reset.
+// ResetPost: Reset implemented user password reset.
 func (this *ForgotRouter) ResetPost() {
 	this.TplName = "auth/reset.html"
 

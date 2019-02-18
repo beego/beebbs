@@ -45,7 +45,7 @@ func (this *PostAdminRouter) GetForm(create bool) post.PostAdminForm {
 	return form
 }
 
-// view for list model data
+// List: view for list model data
 func (this *PostAdminRouter) List() {
 	var posts []models.Post
 	qs := models.Posts().RelatedSel()
@@ -55,13 +55,13 @@ func (this *PostAdminRouter) List() {
 	}
 }
 
-// view for create object
+// Create: view for create object
 func (this *PostAdminRouter) Create() {
 	form := this.GetForm(true)
 	this.SetFormSets(&form)
 }
 
-// view for new object save
+// Save: view for new object save
 func (this *PostAdminRouter) Save() {
 	form := this.GetForm(true)
 	if !this.ValidFormSets(&form) {
@@ -79,14 +79,14 @@ func (this *PostAdminRouter) Save() {
 	}
 }
 
-// view for edit object
+// Edit: view for edit object
 func (this *PostAdminRouter) Edit() {
 	form := this.GetForm(false)
 	form.SetFromPost(&this.object)
 	this.SetFormSets(&form)
 }
 
-// view for update object
+// Update: view for update object
 func (this *PostAdminRouter) Update() {
 	form := this.GetForm(false)
 	if this.ValidFormSets(&form) == false {
@@ -113,11 +113,11 @@ func (this *PostAdminRouter) Update() {
 	}
 }
 
-// view for confirm delete object
+// Confirm: view for confirm delete object
 func (this *PostAdminRouter) Confirm() {
 }
 
-// view for delete object
+// Delete: view for delete object
 func (this *PostAdminRouter) Delete() {
 	if this.FormOnceNotMatch() {
 		return
